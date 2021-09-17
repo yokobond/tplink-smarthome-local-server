@@ -1,0 +1,19 @@
+{
+  "name": "tplink-smarthome-web",
+  "version": "0.1.0",
+  "description": "Control TP-Link Smart Home devices via web",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yokobond/tplink-smarthome-web.git"
+  },
+  "keywords": [
+    "smartphome",
+    "tplink"
+  ],
+  "author": "Koji Yokokawa",
+  "license": "MIT"
+}
