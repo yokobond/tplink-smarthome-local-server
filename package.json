@@ -4,6 +4,7 @@
   "description": "Control TP-Link Smart Home devices via web",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,9 @@
     "tplink"
   ],
   "author": "Koji Yokokawa",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "tplink-smarthome-api": "^3.3.0"
+  }
 }
