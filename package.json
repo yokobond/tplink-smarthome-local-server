@@ -1,5 +1,5 @@
 {
-  "name": "tplink-smarthome-web",
+  "name": "tplink-smarthome-local-server",
   "version": "0.1.0",
   "description": "Control TP-Link Smart Home devices via web",
   "main": "app.js",
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/yokobond/tplink-smarthome-web.git"
+    "url": "git+https://github.com/yokobond/tplink-smarthome-local-server.git"
   },
   "keywords": [
     "smartphome",
