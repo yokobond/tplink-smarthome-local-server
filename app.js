@@ -1,3 +1,6 @@
+#!/usr/bin/env node
+'use strict'
+
 const { Client } = require('tplink-smarthome-api');
 const express = require("express");
 

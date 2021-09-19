@@ -2,6 +2,12 @@
   "name": "tplink-smarthome-local-server",
   "version": "0.1.0",
   "description": "Control TP-Link Smart Home devices via web",
+  "bin": {
+    "tplink-smarthome-local-server": "./app.js"
+  },
+  "files": [
+    "./app.js"
+  ],
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
