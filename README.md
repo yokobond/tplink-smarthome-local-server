@@ -2,6 +2,8 @@
 
 This command serves Web API for TP-Link Smarthome in the LAN.
 
+This uses [plasticrake/tplink-smarthome-api: TP-Link Smarthome WiFi API](https://github.com/plasticrake/tplink-smarthome-api) to control devices. Supporting devices are according to the tplink-smarthome-api.
+
 ## How to Use It
 
 `tplink-smarthome-local-server` is a Node executable script of a web server. 
