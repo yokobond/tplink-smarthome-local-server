@@ -1,6 +1,9 @@
 const { Client } = require('tplink-smarthome-api');
 const express = require("express");
 
+const args = process.argv.slice(2);
+const port = args[0] ? parseInt(args[0], 10): 3030;
+
 const app = express();
 app.use(express.urlencoded( { extended:true } ));
 app.use(express.json());
@@ -15,7 +18,8 @@ app.use((req, res, next) => {
         return next();
     }
 });
-const server = app.listen(3030, () => {
+
+const server = app.listen(port, () => {
     console.log(`TP-Link Smart Home Web is listening to PORT:${server.address().port}`);
 });
 
