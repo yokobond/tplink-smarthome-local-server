@@ -3,11 +3,46 @@
 
 const { Client } = require('tplink-smarthome-api');
 const express = require("express");
+const commandLineArgs = require('command-line-args');
+const AccessControl = require('express-ip-access-control');
 
-const args = process.argv.slice(2);
-const port = args[0] ? parseInt(args[0], 10): 3030;
+const optionDefinitions = [
+    {
+        name: 'port',
+        alias: 'p',
+        type: Number,
+        defaultValue: 3030,
+        defaultOption: true,
+    },
+    {
+        name: 'allow',
+        alias: 'a',
+        type: String,
+        multiple: true,
+        defaultValue: ["127.0.0.1", "::1"]
+    },
+    { name: 'verbose',
+        type: Boolean,
+        defaultValue: false
+    },
+];
+const options = commandLineArgs(optionDefinitions);
+console.log(`allow IP: ${JSON.stringify(options.allow, null, 2)}`);
+const accessOptions = {
+    mode: 'allow',
+    denys: [],
+    allows: options.allow,
+    forceConnectionAddress: false,
+    log: function(clientIp, access) {
+        console.log(clientIp + (access ? ' accessed.' : ' denied.'));
+    },
+    statusCode: 401,
+    redirectTo: '',
+    message: 'Unauthorized'
+};
 
 const app = express();
+app.use(AccessControl(accessOptions));
 app.use(express.urlencoded( { extended:true } ));
 app.use(express.json());
 app.use((req, res, next) => {
@@ -22,7 +57,7 @@ app.use((req, res, next) => {
     }
 });
 
-const server = app.listen(port, () => {
+const server = app.listen(options.port, () => {
     console.log(`TP-Link Smart Home Web is listening to PORT:${server.address().port}`);
 });
 
@@ -56,9 +91,11 @@ app.get('/discovery', (req, res, next) => {
     const info = [];
     client.on('device-new', device => {
         info.push({host: device.host, type: device.deviceType, name: device.name});
-        device.getSysInfo().then(sysInfo => {
-            console.log(sysInfo);
-        });
+        if (options.verbose) {
+            device.getSysInfo().then(sysInfo => {
+                console.log(sysInfo);
+            });
+        }
     });
     client.startDiscovery({discoveryInterval: 400, discoveryTimeout: 0});
     setTimeout(() => {
@@ -89,7 +126,9 @@ app.post('/power', (req, res, next) => {
         })
         .finally(() => {
             res.send(report);
-            console.log(report);
+            if (options.verbose){
+                console.log(report);
+            }
             return next();
         })
 });
@@ -126,7 +165,9 @@ app.get('/state', (req, res, next) => {
         })
         .finally(() => {
             res.send(report);
-            console.log(report);
+            if (options.verbose){
+                console.log(report);
+            }
             return next();
         })
 });

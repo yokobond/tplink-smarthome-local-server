@@ -21,6 +21,7 @@ module.exports = {
         }],
         'indent': [2, 4, {"SwitchCase": 1}],
         'no-confusing-arrow': [2],
+        'no-trailing-spaces': [2, {skipBlankLines: true}],
         'no-useless-computed-key': [2],
         'no-useless-constructor': [2],
         'no-var': [2],

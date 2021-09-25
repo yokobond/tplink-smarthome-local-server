@@ -6,19 +6,24 @@ This uses [plasticrake/tplink-smarthome-api: TP-Link Smarthome WiFi API](https:/
 
 ## How to Use It
 
-`tplink-smarthome-local-server` is a Node executable script of a web server. 
+`tplink-smarthome-local-server` starts a web server with REST Web API.
 
 ```sh
 npx tplink-smarthome-local-server
 ```
 
-The web server is listening port 3030 as default.
+This web server is listening port 3030 and access only allowed from local machine as default.
 
-This command accepts port number for listening as a command-line argument like following.
+This command accepts these arguments.
 
-```sh
-npx tplink-smarthome-local-server 3031
-```
+- --port(-p) number
+  port number to listening
+  default `3030`
+- --allow(-a) IPs
+  access allowed IPs separated spaces like `--allow 127.0.0.1 ::1 ::ffff:192.168.0.0/16`
+  default allowed IPs ["127.0.0.1", "::1"]
+- --verbose
+  output more logs
 
 `ctrl-c` to stop this service.
 
