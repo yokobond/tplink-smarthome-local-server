@@ -34,7 +34,7 @@ const accessOptions = {
     allows: options.allow,
     forceConnectionAddress: false,
     log: function(clientIp, access) {
-        console.log(clientIp + (access ? ' accessed.' : ' denied.'));
+        console.log(`${new Date().toLocaleString( 'ja', { timeZoneName: 'short' } )} : ${(access ? 'accessed' : 'denied')} from ${clientIp}`);
     },
     statusCode: 401,
     redirectTo: '',
@@ -132,7 +132,6 @@ app.post('/power', (req, res, next) => {
             return next();
         })
 });
-
 
 app.get('/state', (req, res, next) => {
     const client = new Client();

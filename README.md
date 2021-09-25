@@ -16,16 +16,22 @@ This web server is listening port 3030 and access only allowed from local machin
 
 This command accepts these arguments.
 
-- --port(-p) number
-  port number to listening
-  default `3030`
-- --allow(-a) IPs
-  access allowed IPs separated spaces like `--allow 127.0.0.1 ::1 ::ffff:192.168.0.0/16`
-  default allowed IPs ["127.0.0.1", "::1"]
-- --verbose
-  output more logs
+<dl>
+  <dt>--port(-p) number</dt>
+    <dd>port number to listening, default `3030`</dd>
+  <dt>--allow(-a) IPs</dt>
+    <dd>access allowed IPs separated spaces like `--allow 127.0.0.1 ::1 ::ffff:192.168.0.0/16`, default `127.0.0.1" "::1`</dd>
+  <dt>--verbose</dt>
+    <dd>output more logs, default `false`</dd>
+</dl>
 
-`ctrl-c` to stop this service.
+To lookup the devices on the LAN, access the following link.
+
+[http://localhost:3030/discovery](
+http://localhost:3030/discovery
+)
+
+To stop this service, push `ctrl-c` on the executed command line.
 
 ## API
 
