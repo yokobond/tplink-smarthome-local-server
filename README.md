@@ -47,7 +47,7 @@ Returns array of object with these properties in JSON.
 
 ### Set Power State
 
-`POST /power` with JSON `{ host:<IP address>, power:<boolean> }`
+`POST /state` with JSON `{ host:<IP address>, power:<boolean> }`
 
 Turns Plug or Bulb relay ON when the power is `true` or OFF for others.
 Returns report of the call with these properties in JSON.

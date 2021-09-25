@@ -105,7 +105,7 @@ app.get('/discovery', (req, res, next) => {
     }, 1200);
 });
 
-app.post('/power', (req, res, next) => {
+app.post('/state', (req, res, next) => {
     const client = new Client();
     const report = {host: req.body.host, power: req.body.power === true}
     client.getDevice({ host: report.host }, sendOptions)
