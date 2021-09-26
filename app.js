@@ -34,7 +34,7 @@ const accessOptions = {
     allows: options.allow,
     forceConnectionAddress: false,
     log: function(clientIp, access) {
-        if (options.verbose) {
+        if (!access | options.verbose) {
             console.log(`${new Date().toLocaleString( 'ja', { timeZoneName: 'short' } )} : ${(access ? 'accessed' : 'denied')} from ${clientIp}`);
         }
     },
