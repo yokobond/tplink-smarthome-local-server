@@ -34,7 +34,9 @@ const accessOptions = {
     allows: options.allow,
     forceConnectionAddress: false,
     log: function(clientIp, access) {
-        console.log(`${new Date().toLocaleString( 'ja', { timeZoneName: 'short' } )} : ${(access ? 'accessed' : 'denied')} from ${clientIp}`);
+        if (options.verbose) {
+            console.log(`${new Date().toLocaleString( 'ja', { timeZoneName: 'short' } )} : ${(access ? 'accessed' : 'denied')} from ${clientIp}`);
+        }
     },
     statusCode: 401,
     redirectTo: '',
@@ -112,6 +114,9 @@ app.post('/state', (req, res, next) => {
         .then(device => {
             report.type = device.deviceType;
             report.name = device.name;
+            if (options.verbose){
+                console.log(report);
+            }
             return device.setPowerState(report.power);
         })
         .then(result => {
@@ -143,12 +148,19 @@ app.get('/state', (req, res, next) => {
         report.result = true;
         report.power = cachedState.power;
         res.send(report);
+        if (options.verbose){
+            console.log('respond cache: ');
+            console.log(report);
+        }
         return next();
     }
     client.getDevice({ host: report.host }, sendOptions)
         .then(device => {
             report.type = device.deviceType;
             report.name = device.name;
+            if (options.verbose){
+                console.log(report);
+            }
             return device.getPowerState(sendOptions);
         })
         .then(powerState => {
@@ -160,7 +172,9 @@ app.get('/state', (req, res, next) => {
             deleteCachedState(report.host);
             report.result = 'error';
             report.detail = error.message;
-            console.error(error);
+            if (options.verbose) {
+                console.log(error);
+            }
         })
         .finally(() => {
             res.send(report);
