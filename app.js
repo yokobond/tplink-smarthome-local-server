@@ -61,16 +61,16 @@ const server = app.listen(options.port, () => {
     console.log(`TP-Link Smart Home Web is listening to PORT:${server.address().port}`);
 });
 
-const powerStateCache = {};
+const stateCache = {};
 const sendOptions = {timeout: 1000};
 
-const getCachedPowerState = host => powerStateCache[host];
+const getCachedState = host => stateCache[host];
 
-const updateCachedPowerState = newState => {
-    let entry = powerStateCache[newState.host];
+const updateCachedState = newState => {
+    let entry = stateCache[newState.host];
     if (!entry) {
         entry = newState;
-        powerStateCache[entry.host] = entry;
+        stateCache[entry.host] = entry;
     } else {
         Object.assign(entry, newState);
     }
@@ -78,10 +78,10 @@ const updateCachedPowerState = newState => {
     return entry;
 }
 
-const deleteCachedPowerState = host => {
-    const entry = powerStateCache[host];
+const deleteCachedState = host => {
+    const entry = stateCache[host];
     if (entry) {
-        delete powerStateCache[host];
+        delete stateCache[host];
     }
     return entry;
 }
@@ -116,10 +116,10 @@ app.post('/state', (req, res, next) => {
         })
         .then(result => {
             report.result = result;
-            updateCachedPowerState(report);
+            updateCachedState(report);
         })
         .catch(error => {
-            deleteCachedPowerState(report.host);
+            deleteCachedState(report.host);
             report.result = 'error';
             report.detail = error.message;
             console.error(error);
@@ -136,7 +136,7 @@ app.post('/state', (req, res, next) => {
 app.get('/state', (req, res, next) => {
     const client = new Client();
     const report = {host: req.query.host};
-    const cachedState = getCachedPowerState(report.host);
+    const cachedState = getCachedState(report.host);
     if (cachedState && ((Date.now() - cachedState.update) < 200)) {
         report.type = cachedState.deviceType;
         report.name = cachedState.name;
@@ -154,10 +154,10 @@ app.get('/state', (req, res, next) => {
         .then(powerState => {
             report.result = true;
             report.power = powerState;
-            updateCachedPowerState(report);
+            updateCachedState(report);
         })
         .catch(error => {
-            deleteCachedPowerState(report.host);
+            deleteCachedState(report.host);
             report.result = 'error';
             report.detail = error.message;
             console.error(error);
