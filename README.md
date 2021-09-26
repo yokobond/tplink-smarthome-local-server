@@ -6,13 +6,13 @@ This uses [plasticrake/tplink-smarthome-api: TP-Link Smarthome WiFi API](https:/
 
 ## How to Use It
 
-`tplink-smarthome-local-server` starts a web server with REST Web API.
+`tplink-smarthome-local-server` starts a web server with REST Web API to control devices in the LAN.
 
 ```sh
 npx tplink-smarthome-local-server
 ```
 
-This web server is listening port 3030 and access only allowed from local machine as default.
+This web server is listening port 3030 and access only allowed from the local machine as default.
 
 This command accepts these arguments.
 
@@ -20,7 +20,7 @@ This command accepts these arguments.
   <dt>--port(-p) number</dt>
     <dd>port number to listening, default `3030`</dd>
   <dt>--allow(-a) IPs</dt>
-    <dd>access allowed IPs separated spaces like `--allow 127.0.0.1 ::1 ::ffff:192.168.0.0/16`, default `127.0.0.1" "::1`</dd>
+    <dd>access allowed IPs separated spaces like `--allow 127.0.0.1 ::1 ::ffff:192.168.0.0/16`, default `127.0.0.1 ::1`</dd>
   <dt>--verbose</dt>
     <dd>output more logs, default `false`</dd>
 </dl>
